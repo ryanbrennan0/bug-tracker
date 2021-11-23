@@ -1,0 +1,443 @@
+body {
+    margin: 0;
+}
+
+p {
+    font-size: 16px;
+    font-family: 'Reem Kufi';
+    font-weight: inherit;
+}
+
+h1 {
+    font-size: 30px;
+    font-family: 'Reem Kufi';
+    font-weight: inherit;
+}
+
+h2 {
+    font-size: 26px;
+    font-family: 'Reem Kufi';
+    font-weight: normal;
+}
+
+h3 {
+    font-size: 50px;
+    font-family: 'Reem Kufi';
+    font-weight: inherit;
+}
+
+h4 {
+    font-size: 22px;
+    font-family: 'Reem Kufi';
+    font-weight: inherit;
+    margin-top: 5px;
+}
+
+.container {
+    height: 100vh;
+    width: 100vw;
+}
+
+.sideWrapper {
+    position: absolute;
+    float: left;
+    height: 100vh;
+    width: 20vw; 
+    /* width: 282px; */
+    background-color: #F1F1F1;
+}
+
+.logoWrapper {
+    height: 175px;
+    width: 280px;
+    /* height: 20vh; */
+    /* width: 20vw; */
+}
+
+.logoImage {
+    height: 62px;
+    /* width: 61px; */
+    width: 5vw;
+    margin: 0 auto;
+    padding-top: 27px;
+    /* padding-left: 110px; */
+    margin-left: 7vw;
+}
+
+.logoText {
+    padding-left: 61px;
+    height: 37px;
+    /* width: 160px; */
+    width: 12vw;
+}
+
+.line1 {
+    background-color: black;
+    /* width: 238px; */
+    width: 17vw;
+    height: 3px;
+    margin-left: 22px;
+    margin-top: 31px;
+    opacity: 0.19;
+}
+
+.roadmapWrapper {
+    margin-top: 62px;
+    height: calc(100vh - 237px);
+    /* width: 282px; */
+    width: 20vw;
+}
+
+.roadmapContain {
+    margin-top: 62px;
+    height: 40px;
+    /* width: 282px; */
+    width: 20vw;
+}
+
+.roadmapText {
+    padding-left: 41px;
+    height: 37px;
+    /* width: 160px; */
+    width: 10vw;
+    float: left;
+}
+
+.addImage {
+    padding-right: 40px;
+    padding-top: 25px;
+    height: 25px;
+    /* width: 25px; */
+    width: 1.75vw;
+    float: right;
+}
+
+.line2 {
+    margin-top: 20px;
+    background-color: black;
+    /* width: 238px; */
+    width: 17vw;
+    height: 3px;
+    margin-left: 22px;
+    opacity: 0.19;
+}
+
+.roadmapBtn:hover {
+    background-color: lightgrey;
+}
+
+.roadmapBtn {
+    margin-top: 10px;
+    /* width:100%; */
+    width: 20vw;
+    height: 50px;
+    font-family: 'Reem Kufi';
+    font-size: 20px;
+    border: none;
+    color: black;
+    background-color: #F1F1F1;
+}
+
+.header {
+    float: right;
+    margin-left: 282px;
+    height: 62.5px;
+    /* width: 1158px; */
+    width: 80vw;
+}
+
+.homeImage {
+    height: 30px;
+    width: 34px;
+    margin-top: 15px;
+    margin-left: 20px;
+    position: absolute;
+}
+
+.line3 {
+    margin-top: 62.5px;
+    background-color: black;
+    /* width: 1128px; */
+    width: 78vw;
+    height: 3px;
+    margin-left: 15px;
+    opacity: 0.19;
+}
+
+.diagonal {
+    height: 30px;
+    width: 3px;
+    background-color: black;
+    margin-top: 15px;
+    transform: rotate(30deg);
+    transform-origin: 0% 80%;
+    /* position: absolute; */
+    float: left;
+}
+
+.headerText {
+    height: 40px;
+    /* width: 500px; */
+    width: 50vw;
+    margin-left: 70px;
+    float: left;
+    /* position: absolute; */
+}
+
+.headerText h2 {
+    margin-left: 30px;
+    /* position: absolute; */
+    float: left;
+    margin-top: 17px;
+}
+
+.diagonal2 {
+    height: 30px;
+    width: 3px;
+    background-color: black;
+    margin-top: 15px;
+    transform: rotate(30deg);
+    transform-origin: 0% 80%;
+    position: absolute;
+    margin-left: 150px;
+}
+
+.destinationText {
+    margin-left: 150px;
+}
+
+.main {
+    height: 680px;
+    /* width: 1158px; */
+    width: 80vw;
+    float: right;
+}
+
+.titleContainer {
+    width: 200px;
+}
+
+.roadmapName {
+    margin-left: 15px;
+    height: 0px;
+}
+
+.roadmapName h3 {
+    float: left;
+}
+
+.groupImage {
+    height: 52px;
+    width: 45px;
+    margin-top: 7.5vh;
+    margin-left: 2vw;
+}
+
+.statusContainer {
+    height: 70vh;
+    width: 80vw;
+    float: left;
+    margin-left: 5px;
+}
+
+.notStartedWrapper {
+    height: 70vh;
+    /* width: 320px; */
+    /* width: 22.5vw; */
+    width: 20vw;
+    float: left;
+    margin-left: 3vw;
+}
+
+.notStarted {
+    height: 40px;
+    width: 140px;
+    border-radius: 5px;
+    background-color: #EE9797;
+    text-align: center;
+    /* margin: 0 auto; */
+}
+
+.inProgressWrapper {
+    height: 70vh;
+    /* width: 320px; */
+    /* width: 22.5vw; */
+    width: 20vw;
+    float: left;
+    margin-left: 3vw;
+}
+
+.inProgress {
+    height: 40px;
+    width: 140px;
+    border-radius: 5px;
+    background-color: #FFDE88;
+    text-align: center;
+    /* margin: 0 auto; */
+}
+
+.completedWrapper {
+    height: 70vh;
+    /* width: 320px; */
+    /* width: 22.5vw; */
+    width: 20vw;
+    float: left;
+    margin-left: 3vw;
+}
+
+.completed {
+    height: 40px;
+    width: 140px;
+    border-radius: 5px;
+    background-color: #88FF9B;
+    text-align: center;
+    /* margin: 0 auto; */
+}
+
+.notStartedItem {
+    height: 20vh;
+    width: 20vw;
+    /* height: 170px;
+    width: 260px; */
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    float: left;
+    margin-bottom: 10px;
+    touch-action: none;
+    user-select: none;
+    background-color: white;
+}
+
+.notStartedItem:hover {
+    cursor: pointer;
+}
+
+.title1 {
+    width: 200px;
+    margin-top: 10px;
+}
+
+.notStartedName {
+    float: left;
+}
+
+.notStartedName h2 {
+    margin-top: 5px;
+}
+
+.addNotStarted {
+    height: 25px;
+    width: 25px;
+    float: right;
+    margin-top: 5px;
+}
+
+.title2 {
+    width: 200px;
+    margin-top: 10px;
+}
+
+.inProgressName {
+    float: left;
+}
+
+.inProgressName h2 {
+    margin-top: 5px;
+}
+
+.addInProgress {
+    height: 25px;
+    width: 25px;
+    float: right;
+    margin-top: 5px;
+}
+
+.title3 {
+    width: 200px;
+    margin-top: 10px;
+}
+
+.completedName {
+    float: left;
+}
+
+.completedName h2 {
+    margin-top: 5px;
+}
+
+.addCompleted {
+    height: 25px;
+    width: 25px;
+    float: right;
+    margin-top: 5px;
+}
+
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+  /* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+  
+  /* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+input[type=text],input[type=password], select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: lightseagreen;
+    color: white;
+    padding: 7px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: lightskyblue;
+}
+
+#item {
+    line-height: 0px;
+    margin-top: 2.5vh;
+}

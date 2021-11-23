@@ -1,0 +1,475 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Home</title>
+        <link rel = "stylesheet" href = "css/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+
+            $( function() {
+              $( ".notStartedItem" ).draggable({
+                    helper:"clone",
+                    containment:"document"
+
+                    // drag: function (event, ui) {
+                    //     // get information of dragged item
+                    //     var $row = $(this).closest(".notStartedItem"); 
+                    //     var $text = $row.find("h4").text();
+                    // }
+                });
+
+                $( ".notStartedWrapper" ).droppable({
+                    drop: function( event, ui ) {
+                        // get information of dragged item
+                        console.log("dropped");
+                        var draggable = ui.draggable;
+                        var $row = $(draggable).closest(".notStartedItem"); 
+                        var $text = $row.find("h4").text();
+                        console.log($text);
+
+                        sendStatus($text, 0);
+
+                        // add the draggable to the droppable
+                        ui.draggable.detach().appendTo($(this));
+                    }
+                });
+
+                $( ".inProgressWrapper" ).droppable({
+                    drop: function( event, ui ) {
+                        // get information of dragged item
+                        console.log("dropped");
+                        var d = ui.draggable;
+                        var $row = $(d).closest(".notStartedItem"); 
+                        var $text = $row.find("h4").text();
+
+                        sendStatus($text, 1);
+
+                        ui.draggable.detach().appendTo($(this));
+                    }
+                });
+
+                $( ".completedWrapper" ).droppable({
+                    drop: function( event, ui ) {
+                        // get information of dragged item
+                        console.log("dropped");
+                        var d = ui.draggable;
+                        var $row = $(d).closest(".notStartedItem"); 
+                        var $text = $row.find("h4").text();
+                        console.log($text);
+
+                        // TODO: invoke axios post request with status change
+                        sendStatus($text, 2);
+
+                        ui.draggable.detach().appendTo($(this));
+                    }
+                });
+
+                function sendStatus(text, status) {
+                    var title = text.split('\n')[0].substring(7);
+
+                    data = {
+                        title : title,
+                        state : status,
+                    }
+
+                    axios.post('/changeStatus', {value: data})
+                    .then(function (response) {
+                        console.log("successful status change")
+                    })
+                    .catch(function(error) {
+                        console.log("status change error")
+                    })
+                }
+            } );        
+        </script>
+    </head>
+
+    <body>
+        <div class = "header">
+            <img class = "homeImage" src = "images/home.png" alt = "home">
+            <div class = "headerText">
+                <div class = "diagonal"></div>
+                <h2>Roadmaps</h2>
+                <div class = "diagonal2"></div>
+
+                <div class = "destinationText"><h2><%= data.page %></h2></div>
+            </div>
+            <div class = "line3"></div>
+        </div>
+
+        <div class = "sideWrapper">
+            <div class = "logoWrapper">
+                <img class = "logoImage" src = "images/bug.png" alt = "bug">
+                <div class = "logoText">
+                    <h1>Bug Tracker</h1>
+                </div>
+
+                <div class = "line1"></div>
+            </div>
+
+            <div class = "roadmapWrapper" id ="roadmapWrapper">
+                <div class = "roadmapContain">
+                    <div class = "roadmapText">
+                        <h2>Roadmaps</h2>
+                    </div>
+                    <input type="image" src="images/add.png" name="add" class="addImage" id="addImage"/>
+                </div>
+                <div class = "line2"></div>
+                
+                <% for (var i = 0; i < data.roadmaps.length; i++) { %>
+                    <button type = 'button' id = 'roadmapBtn' class = "roadmapBtn"><%= data.roadmaps[i] %></button>
+                <% } %>
+
+            </div>
+
+        </div>
+
+        <div class = "main">
+            <div id="myModal" class="modal">
+
+                <div class="modal-content">
+                    <span id = "close" class="close">&times;</span>
+
+                    <form class = "addRoadmapForm" id = "addRoadmapForm">
+                        <label for="roadmapName">Add New Roadmap</label><br>
+                        <input type = "text" id = "roadmapName" name = "roadmapName" placeholder = "Roadmap Name ..."><br>
+        
+                        <input type="submit" value="Add Roadmap" id = "addMap">
+                    </form>
+                </div>
+              
+              </div>
+
+              <div id="myModal2" class="modal">
+
+                <div class="modal-content">
+                    <span id = "close2" class="close">&times;</span>
+                    <!-- <form class = "addRoadmapForm" action = "/addNotStarted" method = "post"> -->
+                    <form class = "addRoadmapForm" action = "/addTicket?type=0" method = "post">
+                        <label for="title">Title</label><br>
+                        <input type = "text" id = "title" name = "title" placeholder = "Title ..."><br>
+
+                        <label for="priority">Priority</label><br>
+                        <input type = "text" id = "priority" name = "priority" placeholder = "Priority ..."><br>
+
+                        <label for="deadline">Deadline</label><br>
+                        <input type = "text" id = "deadline" name = "deadline" placeholder = "Deadline ..."><br>
+
+                        <input type="submit" value="Add Bug">
+                    </form>
+                </div>
+              
+              </div>
+
+              <div id="myModal3" class="modal">
+
+                <div class="modal-content">
+                    <span id = "close3" class="close">&times;</span>
+                    <!-- <form class = "addRoadmapForm" action = "/addInProgress" method = "post"> -->
+                    <form class = "addRoadmapForm" action = "/addTicket?type=1" method = "post">
+                        <label for="title">Title</label><br>
+                        <input type = "text" id = "title" name = "title" placeholder = "Title ..."><br>
+
+                        <label for="priority">Priority</label><br>
+                        <input type = "text" id = "priority" name = "priority" placeholder = "Priority ..."><br>
+
+                        <label for="deadline">Deadline</label><br>
+                        <input type = "text" id = "deadline" name = "deadline" placeholder = "Deadline ..."><br>
+
+                        <input type="submit" value="Add Bug">
+                    </form>
+                </div>
+              
+              </div>
+
+              <div id="myModal4" class="modal">
+
+                <div class="modal-content">
+                    <span id = "close4" class="close">&times;</span>
+                    
+                    <!-- <form class = "addRoadmapForm" action = "/addCompleted" method = "post"> -->
+                    <form class = "addRoadmapForm" action = "/addTicket?type=2" method = "post">
+                        <label for="title">Title</label><br>
+                        <input type = "text" id = "title" name = "title" placeholder = "Title ..."><br>
+
+                        <label for="priority">Priority</label><br>
+                        <input type = "text" id = "priority" name = "priority" placeholder = "Priority ..."><br>
+
+                        <label for="deadline">Deadline</label><br>
+                        <input type = "text" id = "deadline" name = "deadline" placeholder = "Deadline ..."><br>
+
+                        <input type="submit" value="Add Bug">
+                    </form>
+                </div>
+              
+              </div>
+
+              <div id="myModal5" class="modal">
+
+                <div class="modal-content" id="users-modal">
+                    <span id = "close5" class="close">&times;</span>
+                    <strong>Current Members</strong>
+                    <ul id = "membersList">
+                    <% for (var i = 0; i < data.groupMembers.length; i++) {%>
+                        <!-- <li><p><%= data.groupMembers[i]%>    <button type = 'button' id = 'removeUser'>Remove</button></p></li> -->
+                        <li><p><%= data.groupMembers[i]%>    <button id = "removeUser"onclick = "removeUser('<%=data.groupMembers[i]%>', this)" type = 'button'>Remove</button></p></li>
+                    <% } %>
+                    </ul>
+
+                    <!-- TODO: Change to load change immediately -->
+                <!-- <form class = "addRoadmapForm" action = "/addGroupMember" method = "post"> -->
+                    
+                    <form class = "addRoadmapForm"></form>
+                        <label for="username"><strong>Username</strong></label><br>
+                        <input type = "text" id = "username" name = "username" placeholder = "New member's username ..."><br>
+
+                        <input type="submit" value="Add User" id = "addUser">
+                    </form>
+                </div>
+              
+              </div>
+              
+            <div class = "roadmapName">
+                <h3> <%= data.page %> </h3>
+            </div>
+            <input type="image" src="images/group.png" name="group" class="groupImage" id="groupImage"/>
+
+            <div class = "statusContainer">
+                <div class = "notStartedWrapper">
+                    <div class = "notStarted" id="notStarted">
+                        
+                        <div class = "title1">
+                            <div class = "notStartedName">
+                                <h2>Not Started</h2>
+                            </div>
+                            <input type="image" src="images/add.png" name="add" class="addNotStarted"/>
+                        </div>
+    
+                        <% for (var i = 0; i < data.notStarted.length; i++) { %>
+                            <div class = "notStartedItem" id = "notStartedItem">
+                                <span id = "close6" class="close" onclick = "deleteBug(this)">&times;</span>
+                                <h4>Title: <%= data.notStarted[i].title %></h>
+                                <p>Priority: <%= data.notStarted[i].priority %></p>
+                                <p>Deadline: <%= data.notStarted[i].deadline %></p>
+                                <p>Author: <%= data.notStarted[i].author %></p>
+                            </div>
+                        <% } %>
+    
+                    </div>
+                </div>
+    
+                <div class = "inProgressWrapper">
+                    <div class = "inProgress" id="inProgress">
+
+                        <div class = "title2">
+                            <div class = "inProgressName">
+                                <h2>In Progress</h2>
+                            </div>
+                            <input type="image" src="images/add.png" name="add" class="addInProgress"/>
+                        </div>
+    
+                        <% for (var i = 0; i < data.inProgress.length; i++) { %>
+                            <div class = "notStartedItem" id = "notStartedItem">
+                                <span id = "close7" class="close" onclick = "deleteBug(this)">&times;</span>
+                                <h4>Title: <%= data.inProgress[i].title %></42>
+                                <p>Priority: <%= data.inProgress[i].priority %></p>
+                                <p>Deadline: <%= data.inProgress[i].deadline %></p>
+                                <p>Author: <%= data.inProgress[i].author %></p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+    
+                <div class = "completedWrapper">
+                    <div class = "completed" id="completed">
+
+                        <div class = "title3">
+                            <div class = "completedName">
+                                <h2>Completed</h2>
+                            </div>
+                            <input type="image" src="images/add.png" name="add" class="addCompleted"/>
+                        </div>
+    
+                        <% for (var i = 0; i < data.completed.length; i++) { %>
+                            <div class = "notStartedItem" id = "notStartedItem">
+                                <span id = "close8" class="close" onclick = "deleteBug(this)">&times;</span>
+                                <h4>Title: <%= data.completed[i].title %></h>
+                                <p>Priority: <%= data.completed[i].priority %></p>
+                                <p>Deadline: <%= data.completed[i].deadline %></p>
+                                <p>Author: <%= data.completed[i].author %></p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("addImage");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementById("close");
+
+            // When the user clicks on the button, open the modal 
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+        <script>
+            // get name of required roadmap (button clicked in navbar)
+            $(".roadmapBtn").click(function() {
+                var $row = $(this).closest("button");    
+                var $text = $row.text();
+                console.log("get roadmap: " + $text);
+
+                axios.post('/getRoadmap', {value: $text})
+                .then(function (response) {
+                    window.location = '/dashboard?name=' + $text;
+                })
+                .catch(function(error) {
+                    window.location = "/dashboard?name=" + $text;
+                })
+            });
+
+
+            var modal2 = document.getElementById("myModal2");
+            var close2 = document.getElementById("close2");
+            close2.onclick = function() {
+                modal2.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modal2) {
+                    modal2.style.display = "none";
+                }
+            }
+
+            $(".addNotStarted").click(function() {
+                modal2.style.display = "block";
+            });
+
+
+            var inProgressModal = document.getElementById("myModal3");
+            var close3 = document.getElementById("close3");
+            close3.onclick = function() {
+                inProgressModal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == inProgressModal) {
+                    inProgressModal.style.display = "none";
+                }
+            }
+
+            $(".addInProgress").click(function() {
+                inProgressModal.style.display = "block";
+            });
+
+            $(".addCompleted").click(function() {
+                completedModal.style.display = "block";
+            });
+
+            var completedModal = document.getElementById("myModal4");
+            var close4 = document.getElementById("close4");
+            close4.onclick = function() {
+                completedModal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == completedModal) {
+                    completedModal.style.display = "none";
+                }
+            }
+
+
+            $(".groupImage").click(function() {
+                groupModal.style.display = "block";
+            });
+
+            var groupModal = document.getElementById("myModal5");
+            var close5 = document.getElementById("close5");
+            close5.onclick = function() {
+                groupModal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == groupModal) {
+                    groupModal.style.display = "none";
+                }
+            }
+
+            $("#addMap").click(function() {
+                var data = document.getElementById('roadmapName').value;
+                axios.post('/addRoadmap', {value: data})
+                    .then(function (response) {
+                        console.log(response.data);
+                        var name = response.data.name;
+                        var b = "<button type = 'button' id = 'roadmapBtn' class = 'roadmapBtn'>" + name +"</button>";
+                        $('#roadmapWrapper').appendChild(b);
+                    })
+                    .catch(function(error) {
+                    })
+            });
+
+            $("#addUser").click(function() {
+                var data = document.getElementById('username').value;
+
+                axios.post('/addGroupMember', {value: data})
+                    .then(function (response) {
+                        var name = response.data.name;
+                        var b = "<li><p>" + name + "   <button id = 'removeUser' type = 'button'>Remove</button></p></li>";
+                        $('#membersList').append(b);
+                        document.getElementById("removeUser").onclick = removeUser(name, this);
+                    })
+                    .catch(function(error) {
+                    })
+                    
+            });
+
+            function removeUser(username, elem) {
+                console.log(username);
+
+                axios.post('/dashboard/removeUser', {value: username})
+                    .then(function (response) {
+                        console.log(response.data.name);
+                        // remove the clicked member node
+                        (elem.parentNode.parentNode).remove(elem);
+                    })
+                    .catch(function(error) {
+                    })
+            }
+
+            function deleteBug(elem) {
+                var $row = $(elem).closest(".notStartedItem");  
+                var $title = $row.find("h4").text();
+                $title = $title.split('\n')[0].substring(7);
+                console.log(title)
+                axios.post('/dashboard/deleteBug', {value: $title})
+                    .then(function (response) {
+                        console.log(response.data.name)
+                        window.location = '/dashboard';
+                    })
+                    .catch(function(error) {
+                    })
+            }
+
+        </script>
+
+    </body>
+
+</html>
